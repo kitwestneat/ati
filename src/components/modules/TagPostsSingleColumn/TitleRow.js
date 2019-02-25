@@ -4,7 +4,7 @@ import React, { PureComponent } from "react";
 import { View, StyleSheet } from "react-native";
 
 import { ModuleTitle } from "components/modules";
-import { ResponsiveLeaderboard } from "components/ads";
+import { Mrec, MobileMrec } from "components/ads";
 
 import { Row } from "components/primitives";
 
@@ -23,7 +23,7 @@ class TitleRow extends PureComponent<Props> {
     return (
       <>
         <Row style={{ alignItems: "center" }}>
-          <ResponsiveLeaderboard />
+          <MobileMrec />
         </Row>
         <Row
           style={{
@@ -43,7 +43,7 @@ class TitleRow extends PureComponent<Props> {
         <View style={styles.titleWrap}>{this.renderTitle()}</View>
 
         <View style={{ flexShrink: 0 }}>
-          <ResponsiveLeaderboard />
+          <Mrec />
         </View>
       </View>
     );
