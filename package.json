@@ -9,7 +9,7 @@
     "lint": "./node_modules/eslint/bin/eslint.js ./src",
     "pre-build": "mv public/index.html public/_index.html && mv public/root-partial.html public/index.html",
     "post-build": "mv public/index.html public/root-partial.html && mv public/_index.html public/index.html && mv build/index.html build/index.php",
-    "build": "npm run pre-build && react-scripts build && npm run post-build"
+    "build": "npm run pre-build && NODE_ENV=dev react-scripts build && npm run post-build"
   },
   "dependencies": {
     "nuka-carousel": "^4.4.8",
