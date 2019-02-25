@@ -8,6 +8,7 @@ import {
   getIdFromGlobalAdRegistration,
   displayAd,
 } from "./ad-utils";
+import { isDevEnv } from "../../utils";
 
 type Props = {
   style?: RNW$Styles,
@@ -34,6 +35,7 @@ const MakeAdComponent = adType => {
       return (
         <View style={[minDimensionsForType, emptyAdStyle, style]}>
           <div id={this.adId} />
+          {!this.adId && isDevEnv() && <div>{adType}</div>}
         </View>
       );
     }
