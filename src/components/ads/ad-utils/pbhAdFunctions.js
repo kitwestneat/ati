@@ -41,7 +41,13 @@ export const startAds = () => {
  * Used in the MakeAdComponent HOC's componentDidMount method
  */
 export const displayAd = adId => {
-  getAdCommandArray().push(() => window.pbh_ad_units[adId].display());
+  getAdCommandArray().push(() => {
+    try {
+      window.pbh_ad_units[adId].display();
+    } catch (e) {
+      console.error("error displaying ad", adId);
+    }
+  });
 };
 
 /**
