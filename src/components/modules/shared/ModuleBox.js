@@ -1,9 +1,10 @@
 // @flow
 
 import React, { PureComponent } from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { elevation } from "constants/index.js";
 import { Pattern } from "components/modules";
+import { LazyView } from "components/utils";
 
 import type { RNW$Styles } from "react-native";
 import type { Node } from "react";
@@ -56,5 +57,5 @@ const styles = StyleSheet.create({
 });
 
 const Box = ({ children, style }) => (
-  <View style={[styles.box, style]}>{children}</View>
+  <LazyView style={[styles.box, style]}>{children}</LazyView>
 );

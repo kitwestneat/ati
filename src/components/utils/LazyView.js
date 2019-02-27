@@ -22,6 +22,10 @@ function onScroll() {
 export default class LazyView extends React.PureComponent {
   static onScroll = onScroll;
 
+  state = {
+    lazyViewable: false,
+  };
+
   constructor(props) {
     super(props);
 
@@ -40,12 +44,17 @@ export default class LazyView extends React.PureComponent {
       ),
     );
 
+  defaultLazyLoader = () => this.setState({ lazyViewable: true });
+
   shouldTrigger = async () => {
     if (!this.theView.current) {
       return;
     }
 
-    const { lazyLoader, lazyOffset = DEFAULT_OFFSET } = this.props;
+    const {
+      lazyLoader = this.defaultLazyLoader,
+      lazyOffset = DEFAULT_OFFSET,
+    } = this.props;
     const { pageY } = await this.measure();
     const { height } = Dimensions.get("window");
 
@@ -57,9 +66,17 @@ export default class LazyView extends React.PureComponent {
   };
 
   render() {
+    const { lazyLoader } = this.props;
+    const { lazyViewable } = this.state;
+
+    // default lazy loader hides children until lazy loaded
+    const isDefaultLazyLoader = !lazyLoader;
+
+    const viewable = !isDefaultLazyLoader || lazyViewable;
+
     return (
       <View ref={this.theView} {...this.props}>
-        {this.props.children}
+        {viewable ? this.props.children : null}
       </View>
     );
   }
