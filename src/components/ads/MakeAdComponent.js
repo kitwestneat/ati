@@ -1,13 +1,10 @@
 // @flow
 
 import React, { PureComponent } from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
+import LazyView from "../utils/LazyView";
 
-import {
-  getMinAdDimensions,
-  getIdFromGlobalAdRegistration,
-  displayAd,
-} from "./ad-utils";
+import { getMinAdDimensions, registerAd, displayAd } from "./ad-utils";
 import { isDevEnv } from "../../utils";
 
 type Props = {
@@ -22,21 +19,24 @@ const MakeAdComponent = adType => {
       style: {},
     };
 
-    adId = getIdFromGlobalAdRegistration(adType);
-
-    componentDidMount = () => {
-      displayAd(this.adId);
-    };
+    state = {};
 
     render() {
       const { style } = this.props;
+      const { adId } = this.state;
       const emptyAdStyle = this.adId ? {} : styles.adPlaceholder;
+      if (adId) {
+        displayAd(adId);
+      }
 
       return (
-        <View style={[minDimensionsForType, emptyAdStyle, style]}>
-          <div id={this.adId} />
-          {!this.adId && isDevEnv() && <div>{adType}</div>}
-        </View>
+        <LazyView
+          lazyLoader={() => this.setState({ adId: registerAd(adType) })}
+          style={[minDimensionsForType, emptyAdStyle, style]}
+        >
+          <div id={adId} />
+          {!adId && isDevEnv() && <div>{adType}</div>}
+        </LazyView>
       );
     }
   };

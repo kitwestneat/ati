@@ -14,7 +14,7 @@ export const Leaderboard = MakeAdComponent(EMBEDDED_LEADERBOARD);
 
 export const SuperLeaderboard = MakeAdComponent(SUPER_LEADERBOARD);
 export const MobileMrec = MakeAdComponent(MOBILE_MREC);
-export const ResponsiveLeaderboard = MakeResponsiveAdComponent({
+export const ResponsiveSuperLeaderboard = MakeResponsiveAdComponent({
   MobileAd: MobileMrec,
   DesktopAd: SuperLeaderboard,
 });

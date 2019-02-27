@@ -11,7 +11,7 @@ import { getAdId } from "./getAdId";
  * @param {String} adType - the type of add from the AD_TYPE enum in constants
  * @returns {String} id
  */
-export const getIdFromGlobalAdRegistration = adType => {
+export const registerAd = adType => {
   const adFunc = getCreateAdFuncForType(adType);
 
   if (!adFunc) return;

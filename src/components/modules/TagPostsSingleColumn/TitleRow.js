@@ -4,7 +4,7 @@ import React, { PureComponent } from "react";
 import { View, StyleSheet } from "react-native";
 
 import { ModuleTitle } from "components/modules";
-import { Mrec, MobileMrec } from "components/ads";
+import { Leaderboard, MobileMrec } from "components/ads";
 
 import { Row } from "components/primitives";
 
@@ -43,7 +43,7 @@ class TitleRow extends PureComponent<Props> {
         <View style={styles.titleWrap}>{this.renderTitle()}</View>
 
         <View style={{ flexShrink: 0 }}>
-          <Mrec />
+          <Leaderboard />
         </View>
       </View>
     );

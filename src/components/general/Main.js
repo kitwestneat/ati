@@ -3,6 +3,7 @@
 import React, { PureComponent } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { PAGE_SPACING } from "constants/index.js";
+import LazyView from "../utils/LazyView";
 
 import type { Node } from "react";
 
@@ -28,6 +29,8 @@ class Main extends PureComponent<Props, State> {
     const { children, contentContainerStyle, style } = this.props;
     return (
       <ScrollView
+        onScroll={LazyView.onScroll}
+        scrollEventThrottle={16}
         keyboardShouldPersistTaps="handled"
         style={[styles.scrollView, style]}
         contentContainerStyle={[styles.contentContainer, contentContainerStyle]}
