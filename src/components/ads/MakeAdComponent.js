@@ -24,7 +24,7 @@ const MakeAdComponent = adType => {
     render() {
       const { style } = this.props;
       const { adId } = this.state;
-      const emptyAdStyle = this.adId ? {} : styles.adPlaceholder;
+      const emptyAdStyle = adId ? {} : styles.adPlaceholder;
       if (adId) {
         displayAd(adId);
       }

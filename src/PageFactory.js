@@ -8,7 +8,7 @@ import {
   Newsletter,
   Trending,
 } from "components/modules";
-import { ResponsiveLeaderboard } from "components/ads";
+import { ResponsiveSuperLeaderboard } from "components/ads";
 import { Section } from "components/primitives";
 
 import {
@@ -18,7 +18,7 @@ import {
 } from "constants/index";
 
 export const SECTION_TYPE_COMPONENT_MAP = {
-  [SECTION_TYPES.AD]: ResponsiveLeaderboard,
+  [SECTION_TYPES.AD]: ResponsiveSuperLeaderboard,
   [SECTION_TYPES.RECENT]: MostRecent,
   [SECTION_TYPES.TAG_TILE_BOX]: TagPostsSingleColumn,
   [SECTION_TYPES.INSTAGRAM]: Instagram,
