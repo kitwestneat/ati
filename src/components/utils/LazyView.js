@@ -48,7 +48,6 @@ export default class LazyView extends React.PureComponent {
 
   shouldTrigger = async () => {
     if (!this.theView.current) {
-      console.log("rescheduling trigger", this.props.children);
       setTimeout(this.shouldTrigger);
       return;
     }
@@ -75,7 +74,6 @@ export default class LazyView extends React.PureComponent {
 
     const viewable = !isDefaultLazyLoader || lazyViewable;
     if (!viewable) {
-      console.log("rescheduling trigger in render", this.props.children);
       // can't call setState in render, so setTimeout
       setTimeout(this.shouldTrigger());
     }
