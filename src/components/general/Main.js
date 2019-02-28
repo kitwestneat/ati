@@ -30,7 +30,7 @@ class Main extends PureComponent<Props, State> {
     return (
       <ScrollView
         onScroll={LazyView.onScroll}
-        scrollEventThrottle={16}
+        scrollEventThrottle={32}
         keyboardShouldPersistTaps="handled"
         style={[styles.scrollView, style]}
         contentContainerStyle={[styles.contentContainer, contentContainerStyle]}
