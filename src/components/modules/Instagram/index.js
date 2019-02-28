@@ -18,7 +18,7 @@ export default class Instagram extends PureComponent {
           const isDesktop = minWidth(BREAKPOINTS.LG);
           return (
             <Container type="content">
-              <ModuleBox style={styles.moduleBox}>
+              <ModuleBox style={styles.moduleBox} unlazy={true}>
                 <View style={styles.row}>
                   <View>
                     <Title isDesktop={isDesktop} />
