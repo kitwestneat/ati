@@ -2,6 +2,7 @@
 
 import React, { PureComponent } from "react";
 import { View, StyleSheet } from "react-native";
+import { LazyView } from "components/utils";
 
 import { Image } from "components/primitives";
 
@@ -9,10 +10,10 @@ class PostImage extends PureComponent {
   render() {
     const { imageSrc, width, height, contrastOverlay } = this.props;
     return (
-      <View>
+      <LazyView>
         <Image width={width} height={height} src={imageSrc} />
         {contrastOverlay && <View style={styles.overlay} />}
-      </View>
+      </LazyView>
     );
   }
 }

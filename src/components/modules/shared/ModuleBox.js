@@ -4,7 +4,6 @@ import React, { PureComponent } from "react";
 import { StyleSheet, View } from "react-native";
 import { elevation } from "constants/index.js";
 import { Pattern } from "components/modules";
-import { LazyView } from "components/utils";
 
 import type { RNW$Styles } from "react-native";
 import type { Node } from "react";
@@ -24,7 +23,6 @@ type Props = {
   children: Node,
   patternColor: CategoryColors,
   offsetDirection?: $Values<OFFSET>,
-  unlazy?: boolean,
 };
 
 class ModuleBox extends PureComponent<Props> {
@@ -33,26 +31,14 @@ class ModuleBox extends PureComponent<Props> {
   };
 
   render() {
-    const {
-      children,
-      patternColor,
-      offsetDirection,
-      style,
-      unlazy = false,
-    } = this.props;
-
-    const ViewComponent = unlazy ? View : LazyView;
+    const { children, patternColor, offsetDirection, style } = this.props;
 
     return patternColor ? (
       <Pattern offsetDirection={offsetDirection} color={patternColor}>
-        <Box style={style} ViewComponent={ViewComponent}>
-          {children}
-        </Box>
+        <Box style={style}>{children}</Box>
       </Pattern>
     ) : (
-      <Box style={style} ViewComponent={ViewComponent}>
-        {children}
-      </Box>
+      <Box style={style}>{children}</Box>
     );
   }
 }
@@ -69,6 +55,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const Box = ({ children, style, ViewComponent }) => (
-  <ViewComponent style={[styles.box, style]}>{children}</ViewComponent>
+const Box = ({ children, style }) => (
+  <View style={[styles.box, style]}>{children}</View>
 );
