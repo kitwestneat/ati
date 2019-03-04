@@ -3,7 +3,7 @@
 import React, { PureComponent } from "react";
 import PageSections from "PageFactory";
 import { AppWrap, Header, Footer, Main } from "./components/general";
-import { ResponsiveSuperLeaderboard } from "./components/ads";
+import { Skybox, Floorboard } from "./components/ads";
 import { startAds } from "./components/ads/ad-utils";
 import { Section } from "components/primitives";
 
@@ -29,13 +29,13 @@ class App extends PureComponent<Props> {
         <Header />
         <Main>
           <Section>
-            <ResponsiveSuperLeaderboard />
+            <Skybox />
           </Section>
 
           <PageSections data={data} />
 
           <Section topSpacing={SECTION_SPACING_VARIANTS.LARGE}>
-            <ResponsiveSuperLeaderboard />
+            <Floorboard />
           </Section>
 
           <Footer />

@@ -24,6 +24,23 @@ export const AD_TYPES = {
    * Sizes: 728x90, 320x50, 300x50, 300x250, 970x250, 970x90
    */
   SUPER_LEADERBOARD: "SUPER_LEADERBOARD",
+
+  /**
+   *
+   * > 970: 970x250, 970x90, 728x90, 468x60
+   * < 970: 728x90, 468x60, 300x250, 320x200, 320x50, 300x50
+   * < 728: 468x60, 300x250, 320x200, 320x50, 300x50
+   * < 468, 300x250, 320x200, 320x50, 300x50
+   *
+   * and for the floorboard:
+   *
+   * > 970: 970x250, 970x90, 728x90, 468x60, 300x250
+   * < 970: 728x90, 468x60, 300x250, 320x200, 320x50, 300x50, 300x600
+   * < 728: 468x60, 300x250, 320x200, 320x50, 300x50, 300x600
+   * < 468, 300x250, 320x200, 320x50, 300x50, 300x600
+   */
+  SKYBOX: "SKYBOX",
+  FLOORBOARD: "FLOORBOARD",
 };
 
 /**
@@ -35,6 +52,8 @@ export const AD_FUNCS_MAP = {
   [AD_TYPES.EMBEDDED_MREC]: "pbh_new_fp_mrec",
   [AD_TYPES.MOBILE_MREC]: "pbh_new_fp_mobile_mrec",
   [AD_TYPES.SUPER_LEADERBOARD]: "pbh_new_fp_superlboard",
+  [AD_TYPES.SKYBOX]: "pbh_new_fp_skybox",
+  [AD_TYPES.FLOORBOARD]: "pbh_new_fp_floorboard",
 };
 
 /**
@@ -55,6 +74,26 @@ export const AD_SIZES_MAP = {
     [320, 50],
     [300, 50],
     [300, 250],
+    [970, 250],
+    [970, 90],
+  ],
+  [AD_TYPES.SKYBOX]: [
+    [728, 90],
+    [320, 50],
+    [320, 200],
+    [300, 50],
+    [300, 250],
+    [468, 60],
+    [970, 250],
+    [970, 90],
+  ],
+  [AD_TYPES.FLOORBOARD]: [
+    [728, 90],
+    [320, 50],
+    [320, 200],
+    [300, 50],
+    [300, 250],
+    [468, 60],
     [970, 250],
     [970, 90],
   ],
