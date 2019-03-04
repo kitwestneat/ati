@@ -13,15 +13,13 @@ export function getNames(child) {
   }
 
   if (typeof child != "object") {
-    if (!child) debugger;
     return child;
   }
 
   const name = child.type.displayName || child.type.name || child.type;
-  if (!name) debugger;
   const props = Object.entries(child.props).reduce(
     (list, [attr, val]) =>
-      attr == "children" ? list : [attr + "=" + JSON.stringify(val), ...list],
+      attr === "children" ? list : [attr + "=" + JSON.stringify(val), ...list],
     [],
   );
   const children = child.props.children ? getNames(child.props.children) : "";
