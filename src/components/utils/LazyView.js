@@ -75,7 +75,7 @@ export default class LazyView extends React.PureComponent {
     const viewable = !isDefaultLazyLoader || lazyViewable;
     if (!viewable) {
       // can't call setState in render, so setTimeout
-      setTimeout(this.shouldTrigger());
+      setTimeout(this.shouldTrigger);
     }
 
     return (
