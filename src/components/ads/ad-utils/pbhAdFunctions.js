@@ -1,4 +1,3 @@
-import { AD_TYPES, AD_FUNCS_MAP } from "../ad-constants";
 import { getCreateAdFuncForType } from "./getCreateAdFuncForType";
 import { getAdId } from "./getAdId";
 

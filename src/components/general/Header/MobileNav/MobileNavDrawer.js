@@ -3,8 +3,6 @@ import { View, StyleSheet } from "react-native";
 import { Text } from "components/primitives";
 import DrawerScaffolding from "./DrawerScaffolding";
 
-import { FaBug } from "react-icons/fa";
-
 import {
   TAG_LINKS,
   SOCIAL_LINKS_STANDARD,

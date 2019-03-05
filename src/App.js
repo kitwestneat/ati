@@ -7,7 +7,7 @@ import { Skybox, Floorboard } from "./components/ads";
 import { startAds } from "./components/ads/ad-utils";
 import { Section } from "components/primitives";
 
-import { SECTION_SPACERS, SECTION_SPACING_VARIANTS } from "constants/index";
+import { SECTION_SPACING_VARIANTS } from "constants/index";
 import { isDevEnv } from "./utils";
 
 type Props = {};

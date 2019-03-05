@@ -42,7 +42,7 @@ const getAdFunctionNameByAdType = adType => AD_FUNCS_MAP[adType];
 const getGlobalAdFunctionForTypeName = adFuncName => {
   const adFunc = window[adFuncName];
   if (!adFunc) {
-    throw `Func not found ${adFuncName}`;
+    throw new Error(`Func not found ${adFuncName}`);
   }
   return adFunc;
 };
