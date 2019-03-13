@@ -13,7 +13,9 @@ import { getAdId } from "./getAdId";
 export const registerAd = adType => {
   const adFunc = getCreateAdFuncForType(adType);
 
-  if (!adFunc) return;
+  if (!adFunc) {
+    return;
+  }
 
   const adId = getAdId();
 
@@ -29,7 +31,7 @@ export const registerAd = adType => {
  * Used in the App component's componentDidMount method
  */
 export const startAds = () => {
-  getAdLoadArray().push(() => window.pbh_start_ads());
+  registerAdLoadCallback(window.pbh_start_ads);
 };
 
 /**
@@ -40,7 +42,7 @@ export const startAds = () => {
  * Used in the MakeAdComponent HOC's componentDidMount method
  */
 export const displayAd = adId => {
-  getAdCommandArray().push(() => {
+  registerAdCommand(() => {
     try {
       window.pbh_ad_units[adId].display();
     } catch (e) {
@@ -57,19 +59,17 @@ export const displayAd = adId => {
  * @param {String} adId
  */
 const registerAdFunctionWithId = (adFunc, adId) => {
-  getAdLoadArray().push(() => adFunc(adId));
+  registerAdLoadCallback(() => adFunc(adId));
 };
 
-/**
- * getAdLoadArray
- *
- * Functional wrapper to resolve PbhAdUnit_load array from window
- */
-const getAdLoadArray = () => window.PbhAdUnit_load || [];
+function registerAdLoadCallback(cb) {
+  window.PbhAdUnit_load = window.PbhAdUnit_load || [];
 
-/**
- * getAdCommandArray
- *
- * Functional wrapper to resolve PbhAdUnit_load array from window
- */
-const getAdCommandArray = () => window.PbhAdUnit_cmd || [];
+  window.PbhAdUnit_load.push(cb);
+}
+
+function registerAdCommand(cb) {
+  window.PbhAdUnit_cmd = window.PbhAdUnit_cmd || [];
+
+  window.PbhAdUnit_cmd.push(cb);
+}

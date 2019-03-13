@@ -1,5 +1,6 @@
 import React from "react";
 import { Dimensions, View } from "react-native";
+import { getNames } from "../../utils";
 
 const DEFAULT_OFFSET = 800;
 

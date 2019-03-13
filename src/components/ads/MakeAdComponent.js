@@ -34,7 +34,7 @@ const MakeAdComponent = adType => {
           lazyLoader={() => this.setState({ adId: registerAd(adType) })}
           style={[minDimensionsForType, emptyAdStyle, style]}
         >
-          <div id={adId} />
+          <div id={adId} type={adType} />
           {!adId && isDevEnv() && <div>{adType}</div>}
         </LazyView>
       );
