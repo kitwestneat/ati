@@ -9,7 +9,8 @@
     "lint": "./node_modules/eslint/bin/eslint.js ./src",
     "pre-build": "cp public/index.html public/_index.html && cp public/root-partial.html public/index.html",
     "post-build": "cp public/index.html public/root-partial.html && cp public/_index.html public/index.html && cp build/index.html build/index.php",
-    "build": "npm run pre-build && NODE_ENV=dev react-scripts build && npm run post-build"
+    "build": "npm run pre-build && NODE_ENV=dev react-scripts build && npm run post-build",
+	"deploy": "tar cvzf /tmp/front.tgz build && scp /tmp/front.tgz pbh:/tmp"
   },
   "dependencies": {
     "nuka-carousel": "4.4.4",
