@@ -2,4 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import { isDevEnv } from "./utils";
+
+function startFP(data) {
+  ReactDOM.render(<App data={data} />, document.getElementById("root"));
+}
+window.startFP = startFP;
+
+if (isDevEnv()) {
+  startFP(require("./data").data);
+}
