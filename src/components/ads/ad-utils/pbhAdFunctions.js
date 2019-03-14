@@ -19,7 +19,9 @@ export const registerAd = adType => {
 
   const adId = getAdId();
 
-  registerAdFunctionWithId(adFunc, adId);
+  setTimeout(() => {
+    registerAdFunctionWithId(adFunc, adId);
+  });
 
   return adId;
 };

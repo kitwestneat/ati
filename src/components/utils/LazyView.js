@@ -5,8 +5,9 @@ import { getNames } from "../../utils";
 const DEFAULT_OFFSET = 800;
 
 const onScrollCbs = {};
+let num = 0;
 function addOnScroll(f) {
-  const handle = Date.now();
+  const handle = num++;
   onScrollCbs[handle] = f;
 
   return handle;
@@ -32,12 +33,12 @@ export default class LazyView extends React.PureComponent {
 
     this.theView = React.createRef();
     this.handle = addOnScroll(this.shouldTrigger);
+    this.loaderCalled = false;
   }
 
   getNames = () => this.props && getNames(this.props.children);
 
   componentDidMount() {
-    debug("lazyload mounted", this.getNames());
     this.shouldTrigger();
   }
 
@@ -52,7 +53,6 @@ export default class LazyView extends React.PureComponent {
 
   shouldTrigger = async () => {
     if (!this.theView.current) {
-      debug("lazyload no current el", this.getNames());
       setTimeout(this.shouldTrigger);
       return;
     }
@@ -64,12 +64,10 @@ export default class LazyView extends React.PureComponent {
     const { pageY } = await this.measure();
     const { height } = Dimensions.get("window");
 
-    if (pageY - lazyOffset < height) {
-      debug("lazyload calling loader", this.getNames());
+    if (pageY - lazyOffset < height && !this.loaderCalled) {
       lazyLoader();
       removeOnScroll(this.handle);
-    } else {
-      debug("lazyload shouldTrigger not calling loader", this.getNames());
+      this.loaderCalled = true;
     }
   };
 
@@ -82,7 +80,6 @@ export default class LazyView extends React.PureComponent {
 
     const viewable = !isDefaultLazyLoader || lazyViewable;
     if (!viewable) {
-      debug("lazyload not viewable", this.getNames());
       // can't call setState in render, so setTimeout
       setTimeout(this.shouldTrigger);
     }
@@ -93,9 +90,4 @@ export default class LazyView extends React.PureComponent {
       </View>
     );
   }
-}
-
-function debug(...args) {
-  window.lazyLoaderDebug = window.lazyLoaderDebug || [];
-  window.lazyLoaderDebug.push(args);
 }
