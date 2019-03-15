@@ -50,7 +50,6 @@ class TagPostsSingleColumn extends PureComponent<Props> {
       sectionTitle,
       sectionLink,
       sectionColor,
-      titleTemplate,
       order,
       posts: [mainPost, ...secondaryPosts],
     } = this.props;
@@ -65,7 +64,6 @@ class TagPostsSingleColumn extends PureComponent<Props> {
                 patternColor={sectionColor}
                 link={sectionLink}
                 title={sectionTitle}
-                titleTemplate={titleTemplate}
                 isDesktop={isDesktop}
               />
 

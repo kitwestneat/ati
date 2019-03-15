@@ -13,7 +13,6 @@ type Props = {
   patternColor: $Values<COLOR_MAP>,
   style: RNW$Styles,
   title: string,
-  template: string,
   isDesktop: boolean,
 };
 

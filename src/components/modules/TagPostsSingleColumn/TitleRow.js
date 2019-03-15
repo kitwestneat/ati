@@ -14,8 +14,6 @@ type Props = {
   patternColor: string,
   title: string,
   link: string,
-  titleTemplate: string,
-  isDesktop: boolean,
 };
 
 class TitleRow extends PureComponent<Props> {
@@ -50,12 +48,11 @@ class TitleRow extends PureComponent<Props> {
   };
 
   renderTitle = () => {
-    const { link, title, patternColor, titleTemplate } = this.props;
+    const { link, title, patternColor } = this.props;
     return (
       <View style={{ width: "100%" }} accessibilityRole="link" href={link}>
         <ModuleTitle
           title={title}
-          template={titleTemplate}
           patternColor={patternColor}
           style={{ minHeight: 110, justifyContent: "center" }}
         />

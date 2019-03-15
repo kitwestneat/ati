@@ -6,21 +6,29 @@ import { ResponsiveProvider } from "components/utils";
 import { generateFakeData } from "./admin-utils";
 import ModuleListCtl from "./ModuleListCtl";
 
+let nextKey = 0;
+function getListWithKeys(list) {
+  return list.map(i => ({
+    ...i,
+    key: nextKey++,
+  }));
+}
+
 export default class Admin extends PureComponent {
   constructor(props) {
     super(props);
 
     window.disableLazyLoad = true;
+    const moduleList = getListWithKeys(this.props.moduleList);
 
     // load initial data from props, but ignore after
-    this.state = { moduleList: this.props.moduleList, isPreview: false };
+    this.state = { moduleList, isPreview: false };
   }
 
   render() {
     const { moduleList, isPreview } = this.state;
 
     const data = moduleList.map(generateFakeData);
-    console.log("isPreview", isPreview);
 
     return (
       <View>

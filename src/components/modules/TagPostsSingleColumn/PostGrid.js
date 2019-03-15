@@ -41,8 +41,6 @@ class PostGrid extends PureComponent<Props> {
     const componentOrderMap = this.getComponentOrder();
     const postsArray = getComposedComponents(componentOrderMap, posts);
 
-    // console.log(postsArray);
-
     return <Grid spacer={30}>{postsArray}</Grid>;
   }
 }

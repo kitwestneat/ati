@@ -1,6 +1,26 @@
 const faker = require("faker");
 const { CATEGORY_COLOR_MAP } = require("constants/index");
 
+export function queryObj2Str(query) {
+  if (typeof query !== "object") {
+    return false;
+  }
+
+  return Object.entries(query).reduce(
+    (str, [key, value], idx) =>
+      str + (idx === 0 ? "" : "&") + `${key}=${value}`,
+    "",
+  );
+}
+
+export function queryStr2Obj(query) {
+  if (typeof query !== "string") {
+    return false;
+  }
+
+  return Object.fromEntries(query.split("&").map(kvp => kvp.split("=")));
+}
+
 const DEFAULT_POST_COUNT = 5;
 export function generateFakeData({ module_opts, query }) {
   if (module_opts.type === "newsletter") {
@@ -28,7 +48,6 @@ function generateFakePost() {
     " " +
     faker.company.catchPhrase();
 
-  console.log("CATEGORY_COLOR_MAP", CATEGORY_COLOR_MAP);
   return {
     id: faker.random.number(),
     title,
