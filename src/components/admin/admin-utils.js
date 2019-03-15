@@ -1,10 +1,11 @@
 const faker = require("faker");
+const { CATEGORY_COLOR_MAP } = require("constants/index");
 
 const DEFAULT_POST_COUNT = 5;
 export function generateFakeData({ module_opts, query }) {
-  if (module_opts.type == "newsletter") {
+  if (module_opts.type === "newsletter") {
     return { type: "newsletter" };
-  } else if (module_opts.type == "instagram") {
+  } else if (module_opts.type === "instagram") {
     return generateFakeInstagramPosts();
   }
   const { posts_per_page = DEFAULT_POST_COUNT } = query;
@@ -27,13 +28,14 @@ function generateFakePost() {
     " " +
     faker.company.catchPhrase();
 
+  console.log("CATEGORY_COLOR_MAP", CATEGORY_COLOR_MAP);
   return {
     id: faker.random.number(),
     title,
     imageSrc: faker.image.image(),
     link: "http://allthatsinteresting.com",
     categoryName: faker.company.catchPhraseAdjective(),
-    categoryColor: faker.internet.color,
+    categoryColor: faker.random.objectElement(CATEGORY_COLOR_MAP),
   };
 }
 

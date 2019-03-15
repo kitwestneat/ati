@@ -15,11 +15,16 @@ import { Responsive } from "components/utils";
 
 import { BREAKPOINTS } from "constants/index";
 
-type Props = { posts: any, sectionColor: string, sectionLink: string };
+type Props = {
+  posts: any,
+  sectionColor: string,
+  sectionLink: string,
+  sectionTitle: string,
+};
 
 class Trending extends PureComponent<Props> {
-  renderMobile = () => {
-    const { posts, sectionColor, sectionLink } = this.props;
+  renderMobile = titleSquare => {
+    const { posts } = this.props;
     return (
       <Container
         type="content"
@@ -34,11 +39,7 @@ class Trending extends PureComponent<Props> {
             width: "100%",
           }}
         >
-          <TitleSquare
-            title="Trending"
-            patternColor={sectionColor}
-            sectionLink={sectionLink}
-          />
+          {titleSquare}
         </View>
         <View style={{ marginTop: 30 }}>
           <ModuleBox>
@@ -48,8 +49,8 @@ class Trending extends PureComponent<Props> {
       </Container>
     );
   };
-  renderDesktop = () => {
-    const { posts, sectionColor, sectionLink } = this.props;
+  renderDesktop = titleSquare => {
+    const { posts } = this.props;
     return (
       <Container type="content">
         <View
@@ -58,13 +59,7 @@ class Trending extends PureComponent<Props> {
             margin: -15,
           }}
         >
-          <View style={{ width: "25%", padding: 15 }}>
-            <TitleSquare
-              title="Trending"
-              patternColor={sectionColor}
-              sectionLink={sectionLink}
-            />
-          </View>
+          <View style={{ width: "25%", padding: 15 }}>{titleSquare}</View>
 
           <View style={{ width: "75%", padding: 15 }}>
             <PostGrid posts={posts} />
@@ -74,11 +69,23 @@ class Trending extends PureComponent<Props> {
     );
   };
   render() {
+    const { sectionColor, sectionLink, sectionTitle } = this.props;
+
+    const titleSquare = (
+      <TitleSquare
+        title={sectionTitle}
+        patternColor={sectionColor}
+        sectionLink={sectionLink}
+      />
+    );
+
     return (
       <Responsive>
         {({ minWidth }) => {
           const isDesktop = minWidth(BREAKPOINTS.LG);
-          return isDesktop ? this.renderDesktop() : this.renderMobile();
+          return isDesktop
+            ? this.renderDesktop(titleSquare)
+            : this.renderMobile(titleSquare);
         }}
       </Responsive>
     );

@@ -5,7 +5,6 @@ import { Button, View } from "react-native";
 import { ResponsiveProvider } from "components/utils";
 import { generateFakeData } from "./admin-utils";
 import ModuleListCtl from "./ModuleListCtl";
-import LazyView from "components/utils/LazyView";
 
 export default class Admin extends PureComponent {
   constructor(props) {

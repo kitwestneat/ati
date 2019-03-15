@@ -16,7 +16,7 @@ type Props = {
 
 class TitleSquare extends PureComponent<Props> {
   render() {
-    const { patternColor, sectionLink } = this.props;
+    const { patternColor, sectionLink, title } = this.props;
     const linkProps = sectionLink
       ? { accessibilityRole: "link", href: sectionLink }
       : {};
@@ -38,7 +38,7 @@ class TitleSquare extends PureComponent<Props> {
                 />
               </Row>
               <Row style={{ marginTop: 20 }}>
-                <Text style={styles.text}>Trending News</Text>
+                <Text style={styles.text}>{title}</Text>
               </Row>
             </View>
           </Ratio>
