@@ -64,7 +64,10 @@ export default class LazyView extends React.PureComponent {
     const { pageY } = await this.measure();
     const { height } = Dimensions.get("window");
 
-    if (pageY - lazyOffset < height && !this.loaderCalled) {
+    if (
+      (pageY - lazyOffset < height && !this.loaderCalled) ||
+      window.disableLazyLoad
+    ) {
       lazyLoader();
       removeOnScroll(this.handle);
       this.loaderCalled = true;
