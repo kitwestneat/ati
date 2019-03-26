@@ -16,17 +16,17 @@
     "faker": "^4.1.0",
     "modal-react-native-web": "^0.2.0",
     "nuka-carousel": "4.4.4",
-    "react": "^16.8.3",
-    "react-art": "^16.8.3",
-    "react-dom": "^16.8.3",
+    "react": "^16.8.5",
+    "react-art": "^16.8.5",
+    "react-dom": "^16.8.5",
     "react-icons": "^3.4.0",
     "react-native-web": "^0.9.13",
-    "react-scripts": "^2.1.5"
+    "react-scripts": "^2.1.8"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",
     "babel-jest": "23.6.0",
-    "eslint": "^5.14.1",
+    "eslint": "^5.15.3",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.6.0",
     "eslint-plugin-flowtype": "^3.4.2",
@@ -36,7 +36,7 @@
     "eslint-plugin-react": "^7.12.4",
     "flow-bin": "^0.91.0",
     "prettier": "^1.16.4",
-    "react-test-renderer": "^16.8.3"
+    "react-test-renderer": "^16.8.5"
   },
   "browserslist": {
     "development": [
