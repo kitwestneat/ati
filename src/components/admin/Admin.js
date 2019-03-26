@@ -25,6 +25,8 @@ export default class Admin extends PureComponent {
     this.state = { moduleList, isPreview: false };
   }
 
+  updateModuleList = ({ moduleList }) => this.setState({ moduleList });
+
   render() {
     const { moduleList, isPreview } = this.state;
 
@@ -37,7 +39,10 @@ export default class Admin extends PureComponent {
           title={isPreview ? "Close" : "Preview"}
         />
         {!isPreview ? (
-          <ModuleListCtl moduleList={moduleList} />
+          <ModuleListCtl
+            moduleList={moduleList}
+            updateModuleList={this.updateModuleList}
+          />
         ) : (
           <View>
             <ResponsiveProvider>

@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
-import { FlatList, View } from "react-native";
+import { View } from "react-native";
+import DraggableFlatList from "third-party/react-native-draggable-flatlist";
 
 import ModuleListItem from "./ModuleListItem";
 import * as styles from "./styles";
@@ -11,18 +12,20 @@ export default class ModuleListCtl extends PureComponent {
     currentlyEditing: -1,
   };
 
-  renderItem = ({ item }) => (
+  renderItem = ({ item, move, moveEnd }) => (
     <ModuleListItem
       item={item}
       isEditing={item.key === this.state.currentlyEditing}
       onChange={PLACEHOLDER_FN}
       onOpenEditClick={() => this.setState({ currentlyEditing: item.key })}
       onCloseEditClick={() => this.setState({ currentlyEditing: -1 })}
+      onMove={move}
+      onMoveEnd={moveEnd}
     />
   );
 
   render() {
-    const { moduleList } = this.props;
+    const { moduleList, updateModuleList } = this.props;
     const { currentlyEditing } = this.state;
 
     const watchedState = {
@@ -31,10 +34,11 @@ export default class ModuleListCtl extends PureComponent {
 
     return (
       <View style={styles.centerItems}>
-        <FlatList
+        <DraggableFlatList
           data={moduleList}
           renderItem={this.renderItem}
           extraData={watchedState}
+          onMoveEnd={({ data }) => updateModuleList({ moduleList: data })}
         />
       </View>
     );
