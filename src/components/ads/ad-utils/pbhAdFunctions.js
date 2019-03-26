@@ -1,5 +1,26 @@
-import { getCreateAdFuncForType } from "./getCreateAdFuncForType";
 import { getAdId } from "./getAdId";
+import { AD_FUNCS_MAP } from "../ad-constants";
+
+/**
+ * getCreateAdFuncForType
+ *
+ * This function takes an adType, resolves the associated pbh ad function name
+ * and tries to resolve it from the window object.
+ * Logs a console.warn if unsuccessful
+ *
+ * @param {String} adType - the type of add from the AD_TYPE enum in constants
+ * @returns {Function} || {undefined}
+ */
+const getCreateAdFuncForType = adType => {
+  const adFuncName = AD_FUNCS_MAP[adType];
+
+  const adFunc = window[adFuncName];
+  if (adFunc) {
+    return adFunc;
+  }
+
+  console.error("getCreateAdFuncForType: function not found,", adFunc);
+};
 
 /**
  * getIdFromGlobalAdRegistration
@@ -12,7 +33,6 @@ import { getAdId } from "./getAdId";
  */
 export const registerAd = adType => {
   const adFunc = getCreateAdFuncForType(adType);
-
   if (!adFunc) {
     return;
   }
@@ -20,7 +40,7 @@ export const registerAd = adType => {
   const adId = getAdId();
 
   setTimeout(() => {
-    registerAdFunctionWithId(adFunc, adId);
+    registerIdWithAdFunction(adFunc, adId);
   });
 
   return adId;
@@ -60,7 +80,7 @@ export const displayAd = adId => {
  * @param {Function} adFunc
  * @param {String} adId
  */
-const registerAdFunctionWithId = (adFunc, adId) => {
+const registerIdWithAdFunction = (adFunc, adId) => {
   registerAdLoadCallback(() => adFunc(adId));
 };
 
