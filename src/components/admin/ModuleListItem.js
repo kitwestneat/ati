@@ -81,8 +81,8 @@ export default class ModuleListItem extends PureComponent {
       <>
         <TouchableOpacity
           style={styles.card}
-          onPressIn={!isEditing && onMove}
-          onPressOut={!isEditing && onMoveEnd}
+          onPressIn={isEditing ? undefined : onMove}
+          onPressOut={isEditing ? undefined : onMoveEnd}
         >
           <View style={handle}>
             <View>
@@ -94,14 +94,17 @@ export default class ModuleListItem extends PureComponent {
                 <Text>Query: {queryStr}</Text>
               </View>
             )}
+            {/*
             <View>
               <Text>{JSON.stringify(item)}</Text>
             </View>
-            <View style={{ margin: "1rem" }}>
-              <Button title="EDIT" onPress={onOpenEditClick} />
-            </View>
+            */}
+          </View>
+          <View style={{ margin: "1rem" }}>
+            <Button title="EDIT" onPress={onOpenEditClick} />
           </View>
         </TouchableOpacity>
+
         {isEditing && (
           <ModuleEditDialog
             isVisible={true}

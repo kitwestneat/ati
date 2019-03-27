@@ -12,13 +12,28 @@ export default class ModuleListCtl extends PureComponent {
     currentlyEditing: -1,
   };
 
+  updateItem = newItem => {
+    const { moduleList, updateModuleList } = this.props;
+
+    const idx = moduleList.findIndex(({ key }) => newItem.key == key);
+    const newList = moduleList.slice(0);
+
+    newList[idx] = newItem;
+
+    updateModuleList({ moduleList: newList });
+
+    this.closeEdit();
+  };
+
+  closeEdit = () => this.setState({ currentlyEditing: -1 });
+
   renderItem = ({ item, move, moveEnd }) => (
     <ModuleListItem
       item={item}
       isEditing={item.key === this.state.currentlyEditing}
-      onChange={PLACEHOLDER_FN}
+      onChange={this.updateItem}
       onOpenEditClick={() => this.setState({ currentlyEditing: item.key })}
-      onCloseEditClick={() => this.setState({ currentlyEditing: -1 })}
+      onCloseEditClick={this.closeEdit}
       onMove={move}
       onMoveEnd={moveEnd}
     />

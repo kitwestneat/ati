@@ -1,8 +1,12 @@
 import React, { PureComponent } from "react";
-import { Button, Text, View } from "react-native";
+import { Button, View, Switch, Text } from "react-native";
 import Modal from "modal-react-native-web";
 
+import { queryObj2Str, queryStr2Obj } from "./admin-utils";
+
 import ModuleTypePicker from "./ModuleTypePicker";
+import AdminInput from "./AdminInput";
+import AdminTextInput from "./AdminTextInput";
 
 import * as styles from "./styles";
 
@@ -16,29 +20,125 @@ export default class ModuleEditDialog extends PureComponent {
   }
   save = () => {
     const { onChange } = this.props;
+    const { newItem } = this.state;
 
-    onChange({});
+    onChange(newItem);
   };
 
-  updateItem = updates =>
+  updateOptions = updates =>
     this.setState(({ newItem }) => ({
       newItem: {
         ...newItem,
-        ...updates,
+        module_opts: {
+          ...newItem.module_opts,
+          ...updates,
+        },
       },
     }));
 
-  renderInput = ({ label, input }) => {
+  updateQuery = query =>
+    this.setState(({ newItem }) => ({
+      newItem: {
+        ...newItem,
+        query: queryStr2Obj(query),
+      },
+    }));
+
+  renderSectionOptions = moduleOpts => {
+    const { sectionTitle, sectionLink, sectionColor } = moduleOpts;
+
     return (
-      <View style={{ flexDirection: "column", margin: ".5rem" }}>
-        <Text style={styles.label}>{label}</Text>
-        {input}
-      </View>
+      <>
+        <AdminInput
+          label="Section Title:"
+          input={
+            <AdminTextInput
+              onChangeText={sectionTitle =>
+                this.updateOptions({ sectionTitle })
+              }
+              value={sectionTitle}
+            />
+          }
+        />
+        <AdminInput
+          label="Section Link:"
+          input={
+            <AdminTextInput
+              onChangeText={sectionLink => this.updateOptions({ sectionLink })}
+              value={sectionLink}
+            />
+          }
+        />
+        <AdminInput
+          label="Section Color:"
+          input={
+            <input
+              onChange={ev => {
+                this.updateOptions({ sectionColor: ev.target.value });
+              }}
+              type="color"
+              value={sectionColor}
+            />
+          }
+        />
+      </>
     );
   };
 
+  renderTagTileBoxOptions = moduleOpts => (
+    <AdminInput
+      label="2x Box on Bottom?"
+      input={
+        <>
+          <Switch
+            onValueChange={isOrder2 =>
+              this.updateOptions({ order: isOrder2 ? 2 : 1 })
+            }
+            value={moduleOpts.order == 2}
+          />
+          <Text
+            style={{ fontSize: "smaller", fontStyle: "italic", marginLeft: 10 }}
+          >
+            (defaults to top)
+          </Text>
+        </>
+      }
+    />
+  );
+
+  renderModuleSpecificOptions = moduleOpts => {
+    switch (moduleOpts.type) {
+      default:
+        console.error("Unknown module type:", moduleOpts.type);
+        break;
+      case "recent":
+        break;
+      case "instagram":
+        break;
+      case "newsletter":
+        break;
+      case "trending":
+        return this.renderSectionOptions(moduleOpts);
+      case "tagTileBox":
+        return (
+          <>
+            {this.renderSectionOptions(moduleOpts)}
+            {this.renderTagTileBoxOptions(moduleOpts)}
+          </>
+        );
+    }
+
+    return null;
+  };
+
   render() {
-    const { isVisible, item, onCancel } = this.props;
+    const { isVisible, onCancel } = this.props;
+    const { newItem } = this.state;
+
+    const queryStr = queryObj2Str(newItem.query);
+    const typeHasQuery = !["instagram", "newsletter"].includes(
+      newItem.module_opts.type,
+    );
 
     return (
       <Modal transparent={true} visible={isVisible}>
@@ -61,33 +161,31 @@ export default class ModuleEditDialog extends PureComponent {
                 ...styles.centerItems,
               }}
             >
-              {this.renderInput({
-                label: "Type",
-                input: (
+              <AdminInput
+                label="Type"
+                input={
                   <ModuleTypePicker
-                    selectedValue={item.module_opts.type}
-                    onValueChange={type => this.updateItem({ type })}
+                    selectedValue={newItem.module_opts.type}
+                    onValueChange={type =>
+                      this.updateOptions({
+                        type,
+                      })
+                    }
                   />
-                ),
-              })}
-              <View>
-                <Text>Hello World!</Text>
-              </View>
-              <View>
-                <Text>Hello World!</Text>
-              </View>
-              <View>
-                <Text>Hello World!</Text>
-              </View>
-              <View>
-                <Text>Hello World!</Text>
-              </View>
-              <View>
-                <Text>Hello World!</Text>
-              </View>
-              <View>
-                <Text>Hello World!</Text>
-              </View>
+                }
+              />
+              {typeHasQuery && (
+                <AdminInput
+                  label="Query:"
+                  input={
+                    <AdminTextInput
+                      onChangeText={query => this.updateQuery(query)}
+                      value={queryStr}
+                    />
+                  }
+                />
+              )}
+              {this.renderModuleSpecificOptions(newItem.module_opts)}
               <View style={{ flexGrow: 3 }}>
                 <View style={{ flexDirection: "row", ...styles.centerItems }}>
                   <View style={{ margin: "1rem" }}>

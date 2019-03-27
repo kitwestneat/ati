@@ -16,7 +16,28 @@ export const centerItems = {
   alignItems: "center",
 };
 
+export const formRow = {
+  display: "flex",
+  justifyContent: "flex-end",
+  flexDirection: "row",
+  width: "80%",
+};
+
 export const label = {
   fontWeight: "bold",
   marginRight: "1rem",
+  flex: 1,
+};
+
+export const input = {
+  flex: 1,
+  marginTop: 3,
+  marginBottom: 3,
+};
+
+export const adminTextInput = {
+  borderColor: "#CCC",
+  borderWidth: 1,
+  borderStyle: "solid",
+  padding: 4,
 };
