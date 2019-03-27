@@ -11,6 +11,16 @@ export const card = {
   backgroundColor: "white",
 };
 
+export const modalCard = {
+  ...card,
+  width: 700,
+  backgroundColor: "white",
+  marginTop: "15vh",
+  borderWidth: 1,
+  borderStyle: "solid",
+  borderColor: "#666",
+};
+
 export const centerItems = {
   justifyContent: "center",
   alignItems: "center",

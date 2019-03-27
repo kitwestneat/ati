@@ -15,14 +15,14 @@ export default class ModuleEditDialog extends PureComponent {
     super(props);
 
     this.state = {
-      newItem: { ...this.props.item },
+      newItem: { ...this.props.item, isNew: undefined },
     };
   }
   save = () => {
-    const { onChange } = this.props;
+    const { onSave } = this.props;
     const { newItem } = this.state;
 
-    onChange(newItem);
+    onSave(newItem);
   };
 
   updateOptions = updates =>
@@ -94,7 +94,7 @@ export default class ModuleEditDialog extends PureComponent {
             onValueChange={isOrder2 =>
               this.updateOptions({ order: isOrder2 ? 2 : 1 })
             }
-            value={moduleOpts.order == 2}
+            value={moduleOpts.order === 2}
           />
           <Text
             style={{ fontSize: "smaller", fontStyle: "italic", marginLeft: 10 }}
@@ -174,6 +174,7 @@ export default class ModuleEditDialog extends PureComponent {
                   />
                 }
               />
+              {this.renderModuleSpecificOptions(newItem.module_opts)}
               {typeHasQuery && (
                 <AdminInput
                   label="Query:"
@@ -185,7 +186,6 @@ export default class ModuleEditDialog extends PureComponent {
                   }
                 />
               )}
-              {this.renderModuleSpecificOptions(newItem.module_opts)}
               <View style={{ flexGrow: 3 }}>
                 <View style={{ flexDirection: "row", ...styles.centerItems }}>
                   <View style={{ margin: "1rem" }}>

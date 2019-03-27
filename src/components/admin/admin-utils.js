@@ -3,12 +3,14 @@ const { CATEGORY_COLOR_MAP } = require("constants/index");
 
 export function queryObj2Str(query) {
   if (typeof query !== "object") {
-    return false;
+    return "";
   }
 
   return Object.entries(query).reduce(
     (str, [key, value], idx) =>
-      str + (idx === 0 ? "" : "&") + `${key}=${value}`,
+      str +
+      (idx === 0 ? "" : "&") +
+      (typeof value == "undefined" ? key : `${key}=${value}`),
     "",
   );
 }
@@ -18,7 +20,10 @@ export function queryStr2Obj(query) {
     return false;
   }
 
-  return Object.fromEntries(query.split("&").map(kvp => kvp.split("=")));
+  const paramPairStrings = query.split("&");
+  const paramPairEntries = paramPairStrings.map(kvp => kvp.split("="));
+
+  return Object.fromEntries(paramPairEntries);
 }
 
 const DEFAULT_POST_COUNT = 5;

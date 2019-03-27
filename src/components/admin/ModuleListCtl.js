@@ -2,49 +2,99 @@ import React, { PureComponent } from "react";
 import { View } from "react-native";
 import DraggableFlatList from "third-party/react-native-draggable-flatlist";
 
+import FloatingActionButton from "./FloatingActionButton";
 import ModuleListItem from "./ModuleListItem";
-import * as styles from "./styles";
+import ModuleEditDialog from "./ModuleEditDialog";
+import ModuleDeleteDialog from "./ModuleDeleteDialog";
 
-const PLACEHOLDER_FN = () => {};
+import { getNewModule, replaceItem } from "./module-list-utils";
+import * as styles from "./styles";
 
 export default class ModuleListCtl extends PureComponent {
   state = {
     currentlyEditing: -1,
+    currentlyDeleting: -1,
   };
 
-  updateItem = newItem => {
+  addItem = () => {
     const { moduleList, updateModuleList } = this.props;
 
-    const idx = moduleList.findIndex(({ key }) => newItem.key == key);
-    const newList = moduleList.slice(0);
+    const module = getNewModule();
 
-    newList[idx] = newItem;
+    updateModuleList({ moduleList: moduleList.concat(module) });
 
+    this.setState({ currentlyEditing: module.key });
+  };
+
+  updateItem = (newItem, opts) => {
+    const { moduleList, updateModuleList } = this.props;
+
+    const newList = replaceItem(moduleList, newItem, opts);
     updateModuleList({ moduleList: newList });
 
     this.closeEdit();
   };
 
-  closeEdit = () => this.setState({ currentlyEditing: -1 });
+  deleteItem = item => this.updateItem(item, { doDelete: true });
 
-  renderItem = ({ item, move, moveEnd }) => (
-    <ModuleListItem
-      item={item}
-      isEditing={item.key === this.state.currentlyEditing}
-      onChange={this.updateItem}
-      onOpenEditClick={() => this.setState({ currentlyEditing: item.key })}
-      onCloseEditClick={this.closeEdit}
-      onMove={move}
-      onMoveEnd={moveEnd}
-    />
-  );
+  closeEdit = () => this.setState({ currentlyEditing: -1 });
+  closeDelete = () => this.setState({ currentlyDeleting: -1 });
+
+  cancel = item => {
+    // if we were editing a new item, have cancel delete it
+    if (item.isNew) {
+      this.deleteItem(item);
+    }
+
+    this.closeEdit();
+  };
+
+  renderItem = ({ item, move, moveEnd }) => {
+    const { currentlyDeleting, currentlyEditing } = this.state;
+
+    const isEditing = item.key === currentlyEditing;
+    const isDeleting = item.key === currentlyDeleting;
+
+    const onDelete = () => this.deleteItem(item);
+    const onEditCancel = () => this.cancel(item);
+
+    return (
+      <>
+        <ModuleListItem
+          item={item}
+          onOpenEditClick={() => this.setState({ currentlyEditing: item.key })}
+          onOpenDeleteClick={() =>
+            this.setState({ currentlyDeleting: item.key })
+          }
+          onMove={move}
+          onMoveEnd={moveEnd}
+        />
+        {isEditing && (
+          <ModuleEditDialog
+            isVisible={true}
+            onSave={this.updateItem}
+            onCancel={onEditCancel}
+            item={item}
+          />
+        )}
+        {isDeleting && (
+          <ModuleDeleteDialog
+            isVisible={true}
+            onCancel={this.closeDelete}
+            onOk={onDelete}
+          />
+        )}
+      </>
+    );
+  };
 
   render() {
     const { moduleList, updateModuleList } = this.props;
-    const { currentlyEditing } = this.state;
+    const { currentlyEditing, currentlyDeleting } = this.state;
 
     const watchedState = {
       currentlyEditing,
+      currentlyDeleting,
     };
 
     return (
@@ -55,6 +105,7 @@ export default class ModuleListCtl extends PureComponent {
           extraData={watchedState}
           onMoveEnd={({ data }) => updateModuleList({ moduleList: data })}
         />
+        <FloatingActionButton onPress={this.addItem} />
       </View>
     );
   }

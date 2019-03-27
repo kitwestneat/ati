@@ -5,14 +5,7 @@ import { Button, View } from "react-native";
 import { ResponsiveProvider } from "components/utils";
 import { generateFakeData } from "./admin-utils";
 import ModuleListCtl from "./ModuleListCtl";
-
-let nextKey = 0;
-function getListWithKeys(list) {
-  return list.map(i => ({
-    ...i,
-    key: nextKey++,
-  }));
-}
+import { getListWithKeys } from "./module-list-utils";
 
 export default class Admin extends PureComponent {
   constructor(props) {

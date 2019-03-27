@@ -20,6 +20,7 @@
     "react-art": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-icons": "^3.4.0",
+    "react-native-floating-action": "^1.14.2",
     "react-native-web": "^0.9.13",
     "react-scripts": "^2.1.8"
   },

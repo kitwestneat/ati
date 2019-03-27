@@ -211,7 +211,7 @@ class SortableFlatList extends Component {
 
   animate = () => {
     const { activeRow } = this.state;
-    const { scrollPercent, data, horizontal, scrollSpeed } = this.props;
+    const { scrollPercent, data, scrollSpeed } = this.props;
     const scrollRatio = scrollPercent / 100;
     if (activeRow === -1) return;
     const nextSpacerIndex = this.getSpacerIndex(this._move, activeRow);
@@ -227,13 +227,6 @@ class SortableFlatList extends Component {
       activeRow === data.length - 1 || nextSpacerIndex === data.length;
     const isFirstItem = activeRow === 0;
     if (this._measurements[activeRow]) {
-      const rowSize = this._measurements[activeRow][
-        horizontal ? "width" : "height"
-      ];
-      const hoverItemTopPosition = Math.max(
-        0,
-        this._move - (this._additionalOffset + this._containerOffset),
-      );
       const fingerPosition = Math.max(0, this._move - this._containerOffset);
       const shouldScrollUp =
         !isFirstItem && fingerPosition < this._containerSize * scrollRatio;

@@ -2,7 +2,6 @@ import React, { PureComponent } from "react";
 import { Button, Text, View, TouchableOpacity } from "react-native";
 
 import { queryObj2Str } from "./admin-utils";
-import ModuleEditDialog from "./ModuleEditDialog";
 
 import * as styles from "./styles";
 
@@ -56,10 +55,8 @@ export default class ModuleListItem extends PureComponent {
   render() {
     const {
       item,
-      isEditing,
-      onChange,
       onOpenEditClick,
-      onCloseEditClick,
+      onOpenDeleteClick,
       onMove,
       onMoveEnd,
     } = this.props;
@@ -75,45 +72,35 @@ export default class ModuleListItem extends PureComponent {
       marginLeft: -5,
     };
 
+    const showQuery = typeof query === "object";
     const queryStr = queryObj2Str(query);
 
     return (
-      <>
-        <TouchableOpacity
-          style={styles.card}
-          onPressIn={isEditing ? undefined : onMove}
-          onPressOut={isEditing ? undefined : onMoveEnd}
-        >
-          <View style={handle}>
-            <View>
-              <Text>Type: {type}</Text>
-            </View>
-            {moduleOptsBox}
-            {queryStr !== false && (
-              <View>
-                <Text>Query: {queryStr}</Text>
-              </View>
-            )}
-            {/*
-            <View>
-              <Text>{JSON.stringify(item)}</Text>
-            </View>
-            */}
+      <TouchableOpacity
+        style={styles.card}
+        onPressIn={onMove}
+        onPressOut={onMoveEnd}
+      >
+        <View style={handle}>
+          <View>
+            <Text>Type: {type}</Text>
           </View>
-          <View style={{ margin: "1rem" }}>
+          {moduleOptsBox}
+          {showQuery && (
+            <View>
+              <Text>Query: {queryStr}</Text>
+            </View>
+          )}
+        </View>
+        <View style={{ margin: "1rem", flexDirection: "row" }}>
+          <View style={{ flexGrow: 1, margin: 5 }}>
             <Button title="EDIT" onPress={onOpenEditClick} />
           </View>
-        </TouchableOpacity>
-
-        {isEditing && (
-          <ModuleEditDialog
-            isVisible={true}
-            onChange={onChange}
-            onCancel={onCloseEditClick}
-            item={item}
-          />
-        )}
-      </>
+          <View style={{ flexGrow: 1, margin: 5 }}>
+            <Button title="DELETE" onPress={onOpenDeleteClick} />
+          </View>
+        </View>
+      </TouchableOpacity>
     );
   }
 }
