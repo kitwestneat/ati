@@ -10,7 +10,7 @@ type Props = {
 
 class EmailInput extends PureComponent<Props> {
   render() {
-    const { value, onChangeText } = this.props;
+    const { value, onChangeText, onSubmit } = this.props;
 
     return (
       <TextInput
@@ -19,6 +19,7 @@ class EmailInput extends PureComponent<Props> {
         textContentType="emailAddress"
         value={value}
         onChangeText={onChangeText}
+        onSubmitEditing={onSubmit}
       />
     );
   }

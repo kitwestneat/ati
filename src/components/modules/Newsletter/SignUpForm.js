@@ -76,7 +76,11 @@ class SignUpForm extends PureComponent<Props, State> {
       <View accessibilityRole="form">
         <Callout />
         <View style={styles.signupWrap}>
-          <EmailInput value={email} onChangeText={this.setEmail} />
+          <EmailInput
+            value={email}
+            onChangeText={this.setEmail}
+            onSubmit={this.handleSubmit}
+          />
           <SubmitButton onPress={this.handleSubmit} />
         </View>
       </View>
