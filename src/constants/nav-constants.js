@@ -26,17 +26,17 @@ export const BUG_REPORT_STRING = "Report a Bad Ad";
 
 export const TAG_LINKS = [
   {
-    href: "/tag/history/",
+    href: "/tag/history",
     type: "history",
     text: "History",
   },
   {
-    href: "/tag/science/",
+    href: "/tag/science",
     type: "science",
     text: "Science",
   },
   {
-    href: "/tag/news/",
+    href: "/tag/news",
     type: "news",
     text: "News",
   },
