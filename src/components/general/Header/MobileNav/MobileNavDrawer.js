@@ -104,7 +104,7 @@ const LinkGroup = ({ children }) => (
 
 const AdReportLink = () => (
   <View style={styles.linkItem}>
-    <Text style={styles.tagText} accessibilityRole="link" href="/">
+    <Text style={styles.tagText} accessibilityRole="link" href="/report-bad-ad">
       {BUG_REPORT_STRING}
     </Text>
   </View>
