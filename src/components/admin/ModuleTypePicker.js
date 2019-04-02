@@ -4,7 +4,6 @@ import { Picker } from "react-native";
 const MODULE_TYPES = [
   "recent",
   "tagTileBox",
-  "tagSideRail",
   "instagram",
   "newsletter",
   "trending",

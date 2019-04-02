@@ -22,7 +22,7 @@ class Header extends PureComponent<Props> {
           const isDesktop = minWidth(BREAKPOINTS.LG);
 
           return (
-            <View style={[styles.headerWrap]}>
+            <View style={[styles.headerWrap]} nativeID="header-nav">
               {isDesktop ? <DesktopNav /> : <MobileNav />}
             </View>
           );
